@@ -1,0 +1,105 @@
+# Simple workflow for deploying static content to GitHub Pages
+name: Deploy static content to Pages
+
+on:
+  # Runs on pushes targeting the default branch
+  push:
+    branches: [main]
+
+  pull_request:
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# Allow one concurrent deployment
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+env:
+  FILE: 'slides.py'  # Source file where scenes are defined
+  MANIM: 'manim'  # manim or manimgl - which Manim renderer to use
+  SCENES: 'Introduction WithTeX Outro'  # Space-separated list of scenes to render
+  USES_TEX: true  # true or false - disabling this will make the action run faster
+  DISPLAY: :99  # Do not touch this
+
+jobs:
+  # Single deploy job since we're just deploying
+  deploy:
+    permissions: write-all
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Install Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+        cache: pip
+
+    - name: Install manim dependencies on Ubuntu
+      if: ${{ env.MANIM == 'manim' }}
+      run: |
+        sudo apt-get update
+        sudo apt-get install libcairo2-dev libpango1.0-dev ffmpeg freeglut3-dev
+
+    - name: Install manimgl dependencies on Ubuntu
+      if: ${{ env.MANIM == 'manimgl' }}
+      run: |
+        sudo apt-get update
+        sudo apt-get install libpango1.0-dev ffmpeg freeglut3-dev xvfb
+        nohup Xvfb $DISPLAY &
+
+    - name: Setup TeX Live
+      if: ${{ env.USES_TEX == 'true' }}
+      uses: teatimeguest/setup-texlive-action@v2
+      with:
+        packages: >-
+          amsmath
+          babel-english
+          cbfonts-fd
+          cm-super
+          ctex
+          doublestroke
+          dvisvgm
+          everysel
+          fontspec
+          frcursive
+          fundus-calligra
+          gnu-freefont
+          jknapltx
+          latex-bin
+          mathastext
+          microtype
+          ms
+          physics
+          preview
+          ragged2e
+          relsize
+          rsfs
+          setspace
+          standalone
+          tipa
+          wasy
+          wasysym
+          xcolor
+          xetex
+          xkeyval
+
+    - name: Install Python dependencies
+      run: pip install -r requirements.txt
+
+    - name: Build HTML
+      run: |
+        ${{ env.MANIM }} ${{ env.FILE }} ${{ env.SCENES }}
+        manim-slides convert ${{ env.SCENES }} _site/index.html
+
+    - name: Push to gh-pages branch
+      if: github.event_name != 'pull_request'
+      uses: s0/git-publish-subdir-action@develop
+      env:
+        REPO: self
+        BRANCH: gh-pages
+        FOLDER: _site
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
