@@ -11,7 +11,7 @@ class Introduction(Slide):
         self.play(FadeIn(welcome))
         self.next_slide()
 
-        self.play(self.wipe(welcome, square))
+        self.wipe(welcome, square)
         self.play(FadeIn(dot))
         self.next_slide()
 
