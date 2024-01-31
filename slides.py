@@ -13,14 +13,11 @@ class Introduction(Slide):
 
         self.wipe(welcome, square)
         self.play(FadeIn(dot))
-        self.next_slide()
 
-        self.start_loop()
+        self.next_slide(loop=True)
         self.play(
             MoveAlongPath(dot, square, rate_func=linear), run_time=2
         )
-        self.end_loop()
-
 
 class WithTeX(Slide):
     def construct(self):
