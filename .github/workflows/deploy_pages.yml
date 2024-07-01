@@ -60,6 +60,7 @@ jobs:
           babel-english
           cbfonts-fd
           cm-super
+          count1to
           ctex
           doublestroke
           dvisvgm
@@ -72,8 +73,9 @@ jobs:
           latex-bin
           mathastext
           microtype
-          ms
+          multitoc
           physics
+          prelim2e
           preview
           ragged2e
           relsize
