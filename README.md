@@ -2,7 +2,7 @@
 
 [![Deploy static content to Pages](../../actions/workflows/deploy_pages.yml/badge.svg)](../../actions/workflows/deploy_pages.yml)
 
-Stater template for Manim Slides presentations and GitHub Pages deployment!
+Starter template for Manim Slides presentations and GitHub Pages deployment!
 
 ## Who is this template for?
 
