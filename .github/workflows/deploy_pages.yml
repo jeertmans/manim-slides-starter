@@ -53,7 +53,7 @@ jobs:
 
     - name: Setup TeX Live
       if: ${{ env.USES_TEX == 'true' }}
-      uses: teatimeguest/setup-texlive-action@v3
+      uses: zauguin/install-texlive@v4
       with:
         packages: >-
           amsmath
