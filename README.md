@@ -38,8 +38,9 @@ button.
   </picture>
 </p>
 
-> NOTE: if you want to have a private repository, you will probably need
-  a GitHub Pro account.
+> [!NOTE]
+> If you want to have a private repository, you will probably need
+> a GitHub Pro account to run the GitHub action.
 
 ### Customizing your presentation
 
@@ -58,7 +59,8 @@ to reflect your changes:
 
 https://github.com/jeertmans/manim-slides-starter/blob/d9799748b124c71626175de8d156c8010bf6f68d/.github/workflows/deploy_pages.yml#L19-L23
 
-> **WARNING**: `manimgl` is currently not supported, as rendering animations
+> [!WARNING]
+> `manimgl` is currently not supported, as rendering animations
 > inside GitHub workflows seems complex...
 
 Last, if you want to change the scenes rendering and the HTML
@@ -79,7 +81,8 @@ personal GitHub pages site: `https://<username>.github.io/<repository_name>`.
 For example, this starter's website is:
 https://jeertmans.github.io/manim-slides-starter.
 
-> NOTE: the first time the deployment action is used,
+> [!NOTE]
+> The first time the deployment action is used,
 > the `gh-pages` branch is created. You might need
 > to go to [`Settings -> Pages`](../../settings/pages)
 > and make sure that the *Source* is
